@@ -29,6 +29,14 @@ except ImportError:
     )
     raise
 
+def ping_namserver():
+    #  pings Google DNS server to test connectivity
+    ipv4 = ipaddress.ip_address("8.8.4.4")
+    print(
+        " Internet up. Ping to google.com in: %f ms"
+        % (wifi.radio.ping(ipv4) * 1000)
+    )
+
 def connect_to_wifi():
     print()
     print("Connecting to WiFi...", end="")
@@ -38,15 +46,11 @@ def connect_to_wifi():
     #  prints IP address to REPL
     print("Connected: IP address %s", wifi.radio.ipv4_address, end="")
 
-    #  pings Google DNS server to test connectivity
-    ipv4 = ipaddress.ip_address("8.8.4.4")
-    print(
-        " Internet up. Ping to google.com in: %f ms"
-        % (wifi.radio.ping(ipv4) * 1000)
-    )
+
 
 connect_to_wifi()
 
 while True:
-
     time.sleep(1)
+    ping_namserver()
+    time.sleep(10)
